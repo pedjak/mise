@@ -1,5 +1,49 @@
 # Changelog
 
+## [2026.11.8](https://github.com/jdx/mise/releases/tag/v2026.11.8) - 2026-11-12
+
+### 🚀 Features
+
+- **(dotfiles)** warn when a copy target was edited since mise wrote it by @jdx in [#15600](https://github.com/jdx/mise/pull/15600)
+- **(task)** infer root package.json scripts for npm and Bun workspaces by @jdx in [#15616](https://github.com/jdx/mise/pull/15616)
+
+### 🐛 Bug Fixes
+
+- **(bootstrap)** keep the brew rack lock out of the Cellar so uninstalled formulae disappear by @jdx in [#15597](https://github.com/jdx/mise/pull/15597)
+- **(bootstrap)** refuse to archive a home directory or oversized source in bootstrap remote by @jdx in [#15607](https://github.com/jdx/mise/pull/15607)
+- **(bootstrap)** build brew formulae from source in a clean environment by @jdx in [#15613](https://github.com/jdx/mise/pull/15613)
+- **(completions)** complete the next task after `:::` by @jdx in [#15614](https://github.com/jdx/mise/pull/15614)
+- **(config)** let project tool_alias override global aliases by @jdx in [#15615](https://github.com/jdx/mise/pull/15615)
+- **(doctor)** stop warning about the backend a packageManager checksum forces by @jdx in [#15604](https://github.com/jdx/mise/pull/15604)
+- **(pipx)** run an installed github git source with no releases offline by @jdx in [#15602](https://github.com/jdx/mise/pull/15602)
+- **(sandbox)** allow `./` relative paths on macOS by @jdx in [#15599](https://github.com/jdx/mise/pull/15599)
+- **(task)** complete bare root task names in a monorepo by @jdx in [#15598](https://github.com/jdx/mise/pull/15598)
+- **(uninstall)** remove the alias links of the last uninstalled version by @jdx in [#15605](https://github.com/jdx/mise/pull/15605)
+
+### 📚 Documentation
+
+- only accept bug reports from real use by @jdx in [e9bf531](https://github.com/jdx/mise/commit/e9bf531d901e3b23411f656cb0878e736e24a62d)
+
+### Chore
+
+- **(ci)** run cargo-deny advisories only when dependencies change by @jdx in [#15601](https://github.com/jdx/mise/pull/15601)
+
+### 📦 Aqua Registry Updates
+
+#### New Packages (1)
+
+- [`connectrpc/protoc-gen-connect-openapi`](https://github.com/connectrpc/protoc-gen-connect-openapi)
+
+#### Updated Packages (7)
+
+- [`dependabot/cli`](https://github.com/dependabot/cli)
+- [`git-bug/git-bug`](https://github.com/git-bug/git-bug)
+- [`github/gh-ost`](https://github.com/github/gh-ost)
+- [`helmfile/helmfile`](https://github.com/helmfile/helmfile)
+- `kiro.dev/kiro-cli`
+- [`matthart1983/netwatch`](https://github.com/matthart1983/netwatch)
+- [`modem-dev/hunk`](https://github.com/modem-dev/hunk)
+
 ## [2026.11.7](https://github.com/jdx/mise/releases/tag/v2026.11.7) - 2026-11-11
 
 ### 🚀 Features

@@ -30314,6 +30314,33 @@ packages:
     files:
       - name: protoc-gen-connect-go
   - type: github_release
+    repo_owner: connectrpc
+    repo_name: protoc-gen-connect-openapi
+    aliases:
+      - name: sudorandom/protoc-gen-connect-openapi
+    description: Plugin for generating OpenAPIv3 from protobufs matching the Connect RPC interface
+    version_constraint: "false"
+    version_overrides:
+      - version_constraint: semver("<= 0.8.3")
+        no_asset: true
+      - version_constraint: semver("<= 0.13.0")
+        asset: protoc-gen-connect-openapi_{{trimV .Version}}_{{.OS}}_{{.Arch}}.{{.Format}}
+        format: tar.gz
+        checksum:
+          type: github_release
+          asset: protoc-gen-connect-openapi_{{trimV .Version}}_checksums.txt
+          algorithm: sha256
+      - version_constraint: "true"
+        asset: protoc-gen-connect-openapi_{{trimV .Version}}_{{.OS}}_{{.Arch}}.{{.Format}}
+        format: tar.gz
+        checksum:
+          type: github_release
+          asset: checksums.txt
+          algorithm: sha256
+        overrides:
+          - goos: darwin
+            asset: protoc-gen-connect-openapi_{{trimV .Version}}_{{.OS}}_all.{{.Format}}
+  - type: github_release
     repo_owner: container-tools
     repo_name: spectrum
     description: A lightweight super-fast container image builder
@@ -34554,6 +34581,19 @@ packages:
     version_overrides:
       - version_constraint: Version in ["v1.25.0", "v1.33.0"]
         no_asset: true
+      - version_constraint: semver("<= 1.62.1")
+        asset: dependabot-{{.Version}}-{{.OS}}-{{.Arch}}.{{.Format}}
+        format: tar.gz
+        windows_arm_emulation: true
+        checksum:
+          type: github_release
+          asset: "{{.Asset}}.md5"
+          algorithm: md5
+        overrides:
+          - goos: windows
+            format: zip
+        files:
+          - name: dependabot
       - version_constraint: "true"
         asset: dependabot-{{.Version}}-{{.OS}}-{{.Arch}}.{{.Format}}
         format: tar.gz
@@ -34567,6 +34607,8 @@ packages:
             format: zip
         files:
           - name: dependabot
+        github_artifact_attestations:
+          signer_workflow: dependabot/cli/.github/workflows/release.yml
   - type: github_release
     repo_owner: dependency-check
     repo_name: DependencyCheck
@@ -43985,6 +44027,8 @@ packages:
               - https://github.com/git-bug/git-bug/.github/workflows/release.yml@refs/tags/{{.Version}}
               - --certificate-oidc-issuer
               - https://token.actions.githubusercontent.com
+        github_artifact_attestations:
+          signer_workflow: git-bug/git-bug/.github/workflows/release.yml
   - type: github_release
     repo_owner: git-chglog
     repo_name: git-chglog
@@ -44371,6 +44415,8 @@ packages:
         supported_envs:
           - linux
           - darwin
+        github_artifact_attestations:
+          signer_workflow: github/gh-ost/.github/workflows/release.yml
   - type: github_release
     repo_owner: github
     repo_name: git-sizer
@@ -51360,6 +51406,13 @@ packages:
     description: Declaratively deploy your Kubernetes manifests, Kustomize configs, and Charts as Helm releases. Generate all-in-one manifests for use with ArgoCD
     version_constraint: "false"
     version_overrides:
+      - version_constraint: semver("< 1.8.1")
+        asset: helmfile_{{trimV .Version}}_{{.OS}}_{{.Arch}}.{{.Format}}
+        format: tar.gz
+        checksum:
+          type: github_release
+          asset: helmfile_{{trimV .Version}}_checksums.txt
+          algorithm: sha256
       - version_constraint: "true"
         asset: helmfile_{{trimV .Version}}_{{.OS}}_{{.Arch}}.{{.Format}}
         format: tar.gz
@@ -51367,6 +51420,8 @@ packages:
           type: github_release
           asset: helmfile_{{trimV .Version}}_checksums.txt
           algorithm: sha256
+        github_artifact_attestations:
+          signer_workflow: helmfile/helmfile/.github/workflows/releaser.yaml
   - type: github_release
     repo_owner: helmfile
     repo_name: vals
@@ -60322,26 +60377,44 @@ packages:
     name: kiro.dev/kiro-cli
     description: Kiro CLI is an agentic coding tool that lives in your terminal
     link: https://kiro.dev/docs/cli/installation/
-    url: https://prod.download.cli.kiro.dev/stable/{{.Version}}/kirocli-{{.Arch}}-linux-musl.zip
-    format: zip
-    files:
-      - name: kiro-cli
-        src: kirocli/bin/kiro-cli
-      - name: kiro-cli-chat
-        src: kirocli/bin/kiro-cli-chat
-    replacements:
-      amd64: x86_64
-      arm64: aarch64
-    overrides:
-      - goos: darwin
-        url: https://prod.download.cli.kiro.dev/stable/{{.Version}}/Kiro%20CLI.dmg
-        format: dmg
+    version_constraint: "false"
+    version_overrides:
+      - version_constraint: semver("< 3.0.0")
+        url: https://prod.download.cli.kiro.dev/stable/{{.Version}}/kirocli-{{.Arch}}-linux-musl.zip
+        format: zip
         files:
           - name: kiro-cli
-            src: Kiro CLI.app/Contents/MacOS/kiro-cli
-    supported_envs:
-      - linux
-      - darwin
+            src: kirocli/bin/kiro-cli
+          - name: kiro-cli-chat
+            src: kirocli/bin/kiro-cli-chat
+        replacements:
+          amd64: x86_64
+          arm64: aarch64
+        overrides:
+          - goos: darwin
+            url: https://prod.download.cli.kiro.dev/stable/{{.Version}}/Kiro%20CLI.dmg
+            format: dmg
+            files:
+              - name: kiro-cli
+                src: Kiro CLI.app/Contents/MacOS/kiro-cli
+        supported_envs:
+          - linux
+          - darwin
+      - version_constraint: "true"
+        url: https://prod.download.cli.kiro.dev/stable/{{.Version}}/kirocli-{{.Arch}}-linux-musl.zip
+        format: zip
+        files:
+          - name: kiro-cli
+            src: kirocli/bin/kiro-cli
+        replacements:
+          amd64: x86_64
+          arm64: aarch64
+        overrides:
+          - goos: darwin
+            url: https://prod.download.cli.kiro.dev/stable/{{.Version}}/kirocli-universal-darwin.zip
+        supported_envs:
+          - linux
+          - darwin
   - type: github_release
     repo_owner: kjanat
     repo_name: actionlint
@@ -67774,6 +67847,21 @@ packages:
             format: zip
             asset: netwatch-{{.OS}}-{{.Arch}}.exe.{{.Format}}
             replacements: {}
+      - version_constraint: semver("< 0.38.0")
+        asset: netwatch-{{.OS}}-{{.Arch}}-static.{{.Format}}
+        format: tar.gz
+        windows_arm_emulation: true
+        replacements:
+          amd64: x86_64
+          arm64: aarch64
+          darwin: macos
+        overrides:
+          - goos: darwin
+            asset: netwatch-{{.OS}}-{{.Arch}}.{{.Format}}
+          - goos: windows
+            format: zip
+            asset: netwatch-{{.OS}}-{{.Arch}}.exe.{{.Format}}
+            replacements: {}
       - version_constraint: "true"
         asset: netwatch-{{.OS}}-{{.Arch}}-static.{{.Format}}
         format: tar.gz
@@ -67789,6 +67877,8 @@ packages:
             format: zip
             asset: netwatch-{{.OS}}-{{.Arch}}.exe.{{.Format}}
             replacements: {}
+        github_artifact_attestations:
+          signer_workflow: matthart1983/netwatch/.github/workflows/release.yml
   - type: github_release
     repo_owner: mattn
     repo_name: algia
@@ -70625,6 +70715,18 @@ packages:
         supported_envs:
           - linux
           - darwin
+      - version_constraint: semver("< 0.19.0")
+        asset: hunkdiff-{{.OS}}-{{.Arch}}.{{.Format}}
+        format: tar.gz
+        files:
+          - name: hunk
+            src: "{{.AssetWithoutExt}}/hunk"
+        replacements:
+          amd64: x64
+        supported_envs:
+          - linux
+          - darwin
+          - windows/amd64
       - version_constraint: "true"
         asset: hunkdiff-{{.OS}}-{{.Arch}}.{{.Format}}
         format: tar.gz
@@ -70637,6 +70739,8 @@ packages:
           - linux
           - darwin
           - windows/amd64
+        github_artifact_attestations:
+          signer_workflow: modem-dev/hunk/.github/workflows/release-prebuilt-npm.yml
   - type: github_release
     repo_owner: momaek
     repo_name: authy
@@ -93984,31 +94088,6 @@ packages:
         supported_envs:
           - linux
           - darwin
-  - type: github_release
-    repo_owner: sudorandom
-    repo_name: protoc-gen-connect-openapi
-    description: Plugin for generating OpenAPIv3 from protobufs matching the Connect RPC interface
-    version_constraint: "false"
-    version_overrides:
-      - version_constraint: semver("<= 0.8.3")
-        no_asset: true
-      - version_constraint: semver("<= 0.13.0")
-        asset: protoc-gen-connect-openapi_{{trimV .Version}}_{{.OS}}_{{.Arch}}.{{.Format}}
-        format: tar.gz
-        checksum:
-          type: github_release
-          asset: protoc-gen-connect-openapi_{{trimV .Version}}_checksums.txt
-          algorithm: sha256
-      - version_constraint: "true"
-        asset: protoc-gen-connect-openapi_{{trimV .Version}}_{{.OS}}_{{.Arch}}.{{.Format}}
-        format: tar.gz
-        checksum:
-          type: github_release
-          asset: checksums.txt
-          algorithm: sha256
-        overrides:
-          - goos: darwin
-            asset: protoc-gen-connect-openapi_{{trimV .Version}}_{{.OS}}_all.{{.Format}}
   - type: github_release
     repo_owner: sue445
     repo_name: plant_erd
